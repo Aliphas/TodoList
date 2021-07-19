@@ -36,3 +36,45 @@
     transform: rotate(360deg);
   }
 }
+h1 {
+  text-align: center;
+}
+
+/* Remove to other component */
+.TodoContainer {
+  width: 90%;
+  margin: 5%;
+  min-height: 500px;
+  border: 1px solid black;
+}
+button.MuiButton-containedPrimary {
+  background-color: green;
+  font-size: 20px;
+  min-width: 80px;
+  margin: 3px;
+
+}
+button.MuiButton-root:hover {
+  background-color: darkgreen;
+}
+input.MuiOutlinedInput-input {
+  font-size: 20px;
+  padding: 15px;
+}
+textarea.Mui-textField:focus {
+  border: darkgreen;
+}
+ul.MuiList-root {
+  width: 800px;
+  min-height: 300px;
+  word-wrap: break-word;
+  
+}
+li.MuiListItem-container {
+  
+  color: azure;
+  background-color: green;
+}
+span.MuiTypography-body2 {
+  font-size: 20px;
+}
