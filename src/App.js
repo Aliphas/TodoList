@@ -8,28 +8,35 @@ import { sortBy } from 'lodash';
 const App = () => {
 
   const [todos, setTodos] = useState([])
-  const [checkboxes, setCheckboxes] = useState([])
   const [value, setValue] = useState('')
   const [editedValue, setEditedValue] = useState('')
   const [editableIndex, setEditableIndex] = useState(null)
   const [sortType, setSortType] = useState(1)
   const todoId = useRef(0)
+  let sortedTodos = todos
+  
+  switch(sortType) {
+    case 'checked':
+      sortedTodos = sortBy(todos, todo => todo.checked)
+      break
+      default: sortedTodos = todos
+  }
 
   const saveTodo = (todoText) => {
     const trimmedText = todoText.trim()
     if (trimmedText.length > 0) {
       const todo = {}
       todo.value = trimmedText
-      todo.id = todoId
+      todo.id = todoId.current
       todoId.current++
       setTodos([...todos, todo])
     }
   }
+
   const addTodo = (event) => {
     event.preventDefault()
     saveTodo(value)
     setValue('') 
-    
   }
   const updateTodo = (index) => {
     const newTodos = todos
@@ -46,21 +53,14 @@ const App = () => {
       .filter((_, index) => index !==todoIndex)
     setTodos(newTodos)
     toggleIsEditable(null)
-    todoId.current--
   }
-
   const toggleIsEditable = (index) => { setEditableIndex(index) }
 
-  const toggleCheckbox = (event, index, todoIdCurrent, todo) => {
+  const checkboxHandler = (event, todo) => {
+    event.preventDefault()
+    const id = todos.findIndex(currentValue => currentValue.id === todo.id)
     const newTodos = todos
-    todo.checked = !todo.checked
-     setTodos(newTodos)
-     console.log(todo)
-  }
- 
-  const sort = (sortType) => { 
-    let newTodos = todos
-    newTodos = sortBy(newTodos, todo => todo.checked)
+    newTodos[id].checked = !newTodos[id].checked 
     setTodos(newTodos)
   }
 
@@ -68,11 +68,7 @@ const App = () => {
     <div>
       <h1>Todo List</h1>
       <div className='TodoContainer'>
-        <SortTodos 
-          setSortType={setSortType}
-          sort={sort}
-          sortType={sortType}
-        />
+        <SortTodos setSortType={setSortType} />
         <TodoForm 
           saveTodo={saveTodo}
           addTodo={addTodo} 
@@ -80,8 +76,7 @@ const App = () => {
           value={value}
         />
         <TodoList 
-          sort={sort}
-          todos={todos}
+          todos={sortedTodos}
           deleteTodo={deleteTodo}
           updateTodo={updateTodo}
           updateHandler={updateHandler}
@@ -91,8 +86,7 @@ const App = () => {
           toggleIsEditable={toggleIsEditable}
           setEditableIndex={setEditableIndex}
           editableIndex={editableIndex}
-          toggleCheckbox={toggleCheckbox}
-          checkboxes={checkboxes}
+          checkboxHandler={checkboxHandler}
         />
       </div>
      

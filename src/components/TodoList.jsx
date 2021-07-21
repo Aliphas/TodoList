@@ -8,7 +8,7 @@ import { Button, TextField, Fab  } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 
 const TodoList = (props) => {
-  const {todos, deleteTodo, updateHandler, setEditedValue, toggleIsEditable, editableIndex, toggleCheckbox} = props
+  const {todos, deleteTodo, updateHandler, setEditedValue, toggleIsEditable, editableIndex, checkboxHandler} = props
   
 return (
     <List> 
@@ -22,15 +22,14 @@ return (
                     placeholder='Add todo'
                     variant="outlined"
                     onChange={event => setEditedValue(event.target.value)} 
+                    defaultValue={todo.value}
                     //value={editedValue}
                   />
                   <Button variant="contained" color="primary" type='submit'>Confirm</Button>
                 </form>
               :<> 
-                  <Checkbox tabIndex={-1} onChange={event => event.target.checked = todo.checked} onClick={(event) => toggleCheckbox(event, index, todo.id.current, todo)}/>
-                  <ListItemText 
-                    primary={todo.value}
-                  />       
+                  <Checkbox checked={todo.checked} tabIndex={-1} onClick={(event) => checkboxHandler(event, todo)} />
+                  <ListItemText primary={todo.value} />       
                   <ListItemSecondaryAction>
                     <Fab aria-label="edit" size='small' onClick={ () => toggleIsEditable(index) }><EditIcon /></Fab>
                     <Fab aria-label="delete" size='small' onClick={ () => deleteTodo(index) }><DeleteIcon /></Fab>
