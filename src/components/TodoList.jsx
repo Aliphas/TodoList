@@ -14,7 +14,7 @@ return (
     <List> 
       {todos.map((todo, index) => {  
         return (
-          <ListItem key={index.toString()} dense button>
+          <ListItem key={todo.id} dense button>
               {editableIndex === index ? 
                 <form onSubmit={event => updateHandler(event, index)}>
                   <TextField
@@ -28,7 +28,7 @@ return (
                   <Button variant="contained" color="primary" type='submit'>Confirm</Button>
                 </form>
               :<> 
-                  <Checkbox checked={todo.checked} tabIndex={-1} onClick={(event) => checkboxHandler(event, todo)} />
+                  <Checkbox checked={todo.checked} tabIndex={-1} onChange={(event) => checkboxHandler(event, todo)} />
                   <ListItemText primary={todo.value} />       
                   <ListItemSecondaryAction>
                     <Fab aria-label="edit" size='small' onClick={ () => toggleIsEditable(index) }><EditIcon /></Fab>

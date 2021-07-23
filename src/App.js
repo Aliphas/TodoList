@@ -13,13 +13,24 @@ const App = () => {
   const [editableIndex, setEditableIndex] = useState(null)
   const [sortType, setSortType] = useState(1)
   const todoId = useRef(0)
-  let sortedTodos = todos
+  let sortedTodos = [...todos]
   
   switch(sortType) {
-    case 'checked':
+    case 'completed':
+      sortedTodos = sortBy(todos, todo => !todo.checked)
+      break;
+    case 'active':
       sortedTodos = sortBy(todos, todo => todo.checked)
-      break
-      default: sortedTodos = todos
+      break;
+    case 'onlyActive':
+      sortedTodos = [ ...todos ]
+        .filter((todo, _) => todo.checked === false)
+      break;
+    case 'onlyCompleted':
+      sortedTodos = [ ...todos ]
+        .filter((todo, _) => todo.checked === true)
+      break;
+      default: sortedTodos = [...todos]
   }
 
   const saveTodo = (todoText) => {
@@ -29,6 +40,7 @@ const App = () => {
       todo.value = trimmedText
       todo.id = todoId.current
       todoId.current++
+      todo.checked = false
       setTodos([...todos, todo])
     }
   }
@@ -39,17 +51,18 @@ const App = () => {
     setValue('') 
   }
   const updateTodo = (index) => {
-    const newTodos = todos
-    newTodos[index] = editedValue
+    const newTodos = [ ...todos ]
+    newTodos[index].value = editedValue
     setTodos(newTodos)
     toggleIsEditable(null)
+    console.log(todos[index])
   }
   const updateHandler = (event, index) => {
     event.preventDefault()
     updateTodo(index)
   }
   const deleteTodo = (todoIndex) => {
-    const newTodos = todos
+    const newTodos = [ ...todos ]
       .filter((_, index) => index !==todoIndex)
     setTodos(newTodos)
     toggleIsEditable(null)
@@ -57,11 +70,11 @@ const App = () => {
   const toggleIsEditable = (index) => { setEditableIndex(index) }
 
   const checkboxHandler = (event, todo) => {
-    event.preventDefault()
     const id = todos.findIndex(currentValue => currentValue.id === todo.id)
-    const newTodos = todos
-    newTodos[id].checked = !newTodos[id].checked 
+    const newTodos = [ ...todos ]
+    newTodos[id].checked = event.target.checked
     setTodos(newTodos)
+    console.log(todo)
   }
 
   return (   
