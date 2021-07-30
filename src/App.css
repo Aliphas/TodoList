@@ -1,63 +1,21 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 h1 {
   text-align: center;
 }
-
-/* Remove to other component */
 .TodoContainer {
-  width: 90%;
-  margin: 5%;
+  width: 70%;
+  margin:  0 15%;
   min-height: 500px;
-  border: 1px solid black;
 }
-button.MuiButton-containedPrimary {
+/* button.MuiButton-containedPrimary {
   background-color: green;
   font-size: 20px;
   min-width: 80px;
   margin: 3px;
-
 }
 button.MuiButton-root:hover {
   background-color: darkgreen;
 }
-input.MuiOutlinedInput-input {
+.MuiOutlinedInput-input {
   font-size: 20px;
   padding: 15px;
 }
@@ -65,16 +23,20 @@ textarea.Mui-textField:focus {
   border: darkgreen;
 }
 ul.MuiList-root {
-  width: 800px;
-  min-height: 300px;
   word-wrap: break-word;
-  
 }
 li.MuiListItem-container {
-  
   color: azure;
   background-color: green;
 }
 span.MuiTypography-body2 {
   font-size: 20px;
 }
+.MuiInputBase-input{
+  border: 1px solid darkgreen;
+}
+.filters button {
+  margin: 10px;
+} */
+
+
