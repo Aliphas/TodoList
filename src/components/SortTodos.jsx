@@ -1,48 +1,50 @@
 import React from 'react'
 import './../App.css';
 import { Button, Menu, MenuItem, InputBase } from '@material-ui/core';
+import State from './../store/state'
+import { observer } from 'mobx-react-lite';
 
-const SortTodos = (props) => {
-  const {setSortType, classes, searchHandler} = props
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClickMenu = (event) => setAnchorEl(event.currentTarget)
+const SortTodos = observer((props) => {
+  const {classes} = props
+  const [anchorElSort, setAnchorElSort] = React.useState(null);
+  const [anchorElFilter, setAnchorElFilter] = React.useState(null);
+  const handleClickMenuSort = (event) => setAnchorElSort(event.currentTarget)
+  const handleClickMenuFilter = (event) => setAnchorElFilter(event.currentTarget)
+
   const handleCloseMenu = (type) => {
-    setAnchorEl(null)
-    setSortType(type)
+    setAnchorElSort(null)
+    setAnchorElFilter(null)
+    State.setSortType(type)
   }
-  return <div className='filters'>
-    {/* <Button variant="contained" onClick={() => setSortType('completed')}>Completed</Button>
-    <Button variant="contained" onClick={() => setSortType('active')}>Active</Button>
-    <Button variant="contained" onClick={() => setSortType('onlyCompleted')}>Only Completed</Button>
-    <Button variant="contained" onClick={() => setSortType('onlyActive')}>Only Active</Button> */}
 
-    <Button className={classes.filter} aria-controls="sort-menu" aria-haspopup="true" onClick={handleClickMenu}>Sort</Button>
+  return <div className='filters'>
+    <Button className={classes.filter} aria-controls="sort-menu" aria-haspopup="true" onClick={handleClickMenuSort}>Sort</Button>
     <Menu className={classes.menu}
       id="sort-menu"
-      anchorEl={anchorEl}
+      anchorEl={anchorElSort}
       keepMounted
-      open={Boolean(anchorEl)}
+      open={Boolean(anchorElSort)}
       onClose={handleCloseMenu}
     >
       <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('default')}>Default</MenuItem>
       <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('completed')}>Completed</MenuItem>
       <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('active')}>Active</MenuItem>
     </Menu>
-    <Button className={classes.filter} aria-controls="filter-menu" aria-haspopup="true" onClick={handleClickMenu}>Filter</Button>
+    <Button className={classes.filter} aria-controls="filter-menu" aria-haspopup="true" onClick={handleClickMenuFilter}>Filter</Button>
     <Menu className={classes.menu}
       id="filter-menu"
-      anchorEl={anchorEl}
+      anchorEl={anchorElFilter}
       keepMounted
-      open={Boolean(anchorEl)}
+      open={Boolean(anchorElFilter)}
       onClose={handleCloseMenu}
     >
       <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('default')}>Default</MenuItem>
-      <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('onlyCompleted')}>Completed</MenuItem>
-      <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('onlyActive')}>Active</MenuItem>
+      <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('onlyCompleted')}>Only Completed</MenuItem>
+      <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('onlyActive')}>Only Active</MenuItem>
     </Menu>
-    <InputBase className={classes.search} variant="outlined" placeholder="Search…" onChange = {event => searchHandler(event.target.value)}></InputBase>
+    <InputBase className={classes.search} variant="outlined" placeholder="Search…" onChange = {event => State.searchHandler(event.target.value)}></InputBase>
   </div>
-}
+})
 
 
 export default SortTodos
