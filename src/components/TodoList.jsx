@@ -6,26 +6,27 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, TextField, Fab  } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import State from './../store/state'
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
+import { useStore } from '..';
 
 const TodoList = observer((props) => {
+  const state = useStore()
   const {classes} = props
   const [editedValue, setEditedValue] = useState('')
-
+  
   const updateHandler = (event, id) => {
     event.preventDefault()
-    State.updateTodo(id, editedValue)
+    state.updateTodo(id, editedValue)
   }
-  
+
   return (
     <List className={classes.todos}> 
-      {State.sortedTodos.map((todo, index) => {  
+      {state.sortedTodos.map((todo, index) => {  
         return (
           <ListItem key={todo.id} dense button>
-              {State.editableIndex === index ? 
-                <form onSubmit={event => updateHandler(event, index)}>
+              {state.editableIndex === index ? 
+                <form onSubmit={event => updateHandler(event, todo.id)}>
                   <TextField
                     className={classes.input}
                     autoFocus
@@ -41,11 +42,11 @@ const TodoList = observer((props) => {
                     style={{color:'green'}} 
                     checked={todo.checked} 
                     tabIndex={-1} 
-                    onClick={(event) => State.checkboxHandler(event, todo)} />
+                    onClick={(event) => state.checkboxHandler(event, todo)} />
                   <ListItemText primary={todo.value} />       
                   <ListItemSecondaryAction>
-                    <Fab className={classes.fabButton} aria-label="edit" size='small' onClick={ () => State.toggleIsEditable(index) }><EditIcon /></Fab>
-                    <Fab className={classes.fabButton} aria-label="delete" size='small' onClick={ () => State.deleteTodo(index) }><DeleteIcon /></Fab>
+                    <Fab className={classes.fabButton} aria-label="edit" size='small' onClick={ () => state.toggleIsEditable(index) }><EditIcon /></Fab>
+                    <Fab className={classes.fabButton} aria-label="delete" size='small' onClick={ () => state.deleteTodo(index) }><DeleteIcon /></Fab>
                   </ListItemSecondaryAction>
                 </>
               }

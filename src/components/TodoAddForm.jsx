@@ -1,15 +1,17 @@
 import { Button, TextField } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
-import State from './../store/state'
+import { useState } from 'react';
+import { useStore } from '..';
 
 const TodoAddForm = observer((props) => {
-  const {setValue, value, classes} = props
-  
+  const {classes} = props
+  const state = useStore()
+  const [value, setValue] = useState('')
+
   const onSubmitHandler = (event) => {
     event.preventDefault()
-    State.addTodo(value)
-    setValue('')
-    
+    state.addTodo(value)
+    setValue('') 
   }
 
   return (
@@ -24,9 +26,11 @@ const TodoAddForm = observer((props) => {
           />
         <Button className={classes.button} type='submit'>Add</Button> 
       </form>
-      <button onClick={() => console.log(State.todos)}>state</button>
-      <button onClick={() => console.log(State.test)}>test</button>
+      <button onClick={() => console.log(state.todos)}>state</button>
+      <button onClick={() => console.log(state.test)}>test</button>
     </div>
   )
 })
 export default TodoAddForm
+
+

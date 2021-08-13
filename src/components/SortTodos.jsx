@@ -1,11 +1,12 @@
 import React from 'react'
 import './../App.css';
 import { Button, Menu, MenuItem, InputBase } from '@material-ui/core';
-import State from './../store/state'
 import { observer } from 'mobx-react-lite';
+import { useStore } from '..';
 
 const SortTodos = observer((props) => {
   const {classes} = props
+  const state = useStore()
   const [anchorElSort, setAnchorElSort] = React.useState(null);
   const [anchorElFilter, setAnchorElFilter] = React.useState(null);
   const handleClickMenuSort = (event) => setAnchorElSort(event.currentTarget)
@@ -14,7 +15,7 @@ const SortTodos = observer((props) => {
   const handleCloseMenu = (type) => {
     setAnchorElSort(null)
     setAnchorElFilter(null)
-    State.setSortType(type)
+    state.setSortType(type)
   }
 
   return <div className='filters'>
@@ -42,7 +43,7 @@ const SortTodos = observer((props) => {
       <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('onlyCompleted')}>Only Completed</MenuItem>
       <MenuItem className={classes.menuItem} onClick={() => handleCloseMenu('onlyActive')}>Only Active</MenuItem>
     </Menu>
-    <InputBase className={classes.search} variant="outlined" placeholder="Search…" onChange = {event => State.searchHandler(event.target.value)}></InputBase>
+    <InputBase className={classes.search} variant="outlined" placeholder="Search…" onChange = {event => state.searchHandler(event.target.value)}></InputBase>
   </div>
 })
 

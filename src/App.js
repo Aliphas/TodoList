@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import React from 'react'
 import './App.css';
 import TodoForm from './components/TodoAddForm';
 import TodoList from './components/TodoList';
 import SortTodos from './components/SortTodos';
 import { makeStyles } from '@material-ui/core';
-import State from './store/state'
 import { observer } from 'mobx-react-lite';
 
 const useStyles = makeStyles({
@@ -110,112 +109,24 @@ const useStyles = makeStyles({
 })
 
 const App = observer(() => {
-  //const [todos, setTodos] = useState([])
-  const [value, setValue] = useState('')
-  //const [editedValue, setEditedValue] = useState('')
-  //const [editableIndex, setEditableIndex] = useState(null)
-  //const [sortType, setSortType] = useState(1)
-  //let sortedTodos = [...todos]
-  //const [searchValue, setSearchValue] = useState('')
+  
   const classes = useStyles()
-  
-  // switch(sortType) {
-  //   case 'default':
-  //     sortedTodos = [...todos]
-  //     break;
-  //   case 'completed':
-  //     sortedTodos = sortBy(todos, todo => !todo.checked)
-  //     break;
-  //   case 'active':
-  //     sortedTodos = sortBy(todos, todo => todo.checked)
-  //     break;
-  //   case 'onlyActive':
-  //     sortedTodos = [ ...todos ]
-  //       .filter((todo, _) => todo.checked === false)
-  //     break;
-  //   case 'onlyCompleted':
-  //     sortedTodos = [ ...todos ]
-  //       .filter((todo, _) => todo.checked === true)
-  //     break;
-  //   case 'search':
-  //     sortedTodos = todos.filter(todo => toLower(todo.value).includes(toLower(searchValue)))
-  //     break;
-  //     default: sortedTodos = [...todos]
-  // }
-
-  // const addTodo = (event) => {
-  //   event.preventDefault()
-  //   const trimmedText = value.trim()
-  //   if (trimmedText.length > 0) {
-  //     const todo = {}
-  //     todo.value = trimmedText
-  //     todo.id = uniqueId()
-  //     console.log(todo.id)
-  //     todo.checked = false
-  //     setTodos([...todos, todo])
-  //   }
-  //   setValue('')
-  // }
-
-  // const updateTodo = (index) => {
-  //   const newTodos = [ ...todos ]
-  //   editedValue ? newTodos[index].value = editedValue : newTodos[index].value = 'empty'
-  //   setTodos(newTodos)
-  //   toggleIsEditable(null)
-  // }
-  
-  // const deleteTodo = (todoIndex) => {
-  //   const newTodos = [ ...todos ]
-  //     .filter((_, index) => index !==todoIndex)
-  //   setTodos(newTodos)
-  //   toggleIsEditable(null)
-  // }
-  //const toggleIsEditable = (index) => { setEditableIndex(index) }
-
-  // const checkboxHandler = (event, todo) => {
-  //   const id = todos.findIndex(currentValue => currentValue.id === todo.id)
-  //   const newTodos = [ ...todos ]
-  //   newTodos[id].checked = event.target.checked
-  //   setTodos(newTodos)
-  // }
-  // const searchHandler = (value) => {
-  //   setSearchValue(value)
-  //   setSortType('search')
-  //   if(value === '' && sortType === 'search') {setSortType('default') }
-  // }
-  return (   
+  return (
     <div>
       <h1>Todo List</h1>
       <div className='TodoContainer'>
-        <SortTodos 
-          //setSortType={setSortType}
-          classes={classes} 
-          //searchHandler={searchHandler}
-        /> 
-        <TodoForm 
-          //addTodo={State.addTodo} 
-          setValue={setValue}
-          value={value}
+        <SortTodos
           classes={classes}
         />
-        <TodoList 
-          todos={State.sortedTodos}
-          //deleteTodo={State.deleteTodo}
-          //updateTodo={updateTodo}
-          setValue={setValue}
-          //setEditedValue={setEditedValue}
-          //editedValue={editedValue}
-          //toggleIsEditable={toggleIsEditable}
-          //setEditableIndex={setEditableIndex}
-          //editableIndex={editableIndex}
-          //checkboxHandler={checkboxHandler}
+        <TodoForm
+          classes={classes}
+        />
+        <TodoList
           classes={classes}
         />
       </div>
-     
     </div>
-    
   )
 })
 
-export default App;
+export default App
