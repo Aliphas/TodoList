@@ -26,8 +26,6 @@ const TodoAddForm = observer((props) => {
           />
         <Button className={classes.button} type='submit'>Add</Button> 
       </form>
-      <button onClick={() => console.log(state.todos)}>state</button>
-      <button onClick={() => console.log(state.test)}>test</button>
     </div>
   )
 })
