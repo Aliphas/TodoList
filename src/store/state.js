@@ -52,8 +52,8 @@ class State {
       this.todos.push(todo)
     }
   }
-  updateTodo(index, editedValue) {
-    editedValue ? this.todos[index].value = editedValue : this.todos[index].value = 'empty'
+  updateTodo(id, editedValue) {
+    editedValue ? this.todos[id].value = editedValue : this.todos[id].value = 'empty'
     this.toggleIsEditable(null)
   }
   deleteTodo(todoIndex) {
@@ -62,7 +62,7 @@ class State {
   }
   checkboxHandler(event, todo) {
     const id = this.todos.findIndex(currentValue => currentValue.id === todo.id)
-    this.todos[id].checked = event.target.checked
+    this.todos[id].checked = !this.todos[id].checked//event.target.checked
   }
   searchHandler(value) {
     this.searchValue = value
@@ -72,7 +72,6 @@ class State {
   setSortType(type) { this.sortType = type}
 
   toggleIsEditable(index) { this.editableIndex = index }
-  //setValue(newValue) {this.value = newValue}
 
 
 
