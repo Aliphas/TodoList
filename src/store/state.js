@@ -60,9 +60,9 @@ class State {
     this.todos = this.todos.filter((_, index) => index !==todoIndex)
     this.editableIndex = null
   }
-  checkboxHandler(event, todo) {
+  checkboxHandler(todo) {
     const id = this.todos.findIndex(currentValue => currentValue.id === todo.id)
-    this.todos[id].checked = !this.todos[id].checked//event.target.checked
+    this.todos[id].checked = !this.todos[id].checked
   }
   searchHandler(value) {
     this.searchValue = value

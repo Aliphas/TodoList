@@ -42,7 +42,7 @@ const TodoList = observer((props) => {
                     style={{color:'green'}} 
                     checked={todo.checked} 
                     tabIndex={-1} 
-                    onClick={(event) => state.checkboxHandler(event, todo)} />
+                    onClick={() => state.checkboxHandler(todo)} />
                   <ListItemText primary={todo.value} />       
                   <ListItemSecondaryAction>
                     <Fab className={classes.fabButton} aria-label="edit" size='small' onClick={ () => state.toggleIsEditable(index) }><EditIcon /></Fab>

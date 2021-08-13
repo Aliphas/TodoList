@@ -109,21 +109,15 @@ const useStyles = makeStyles({
 })
 
 const App = observer(() => {
-  
   const classes = useStyles()
+
   return (
     <div>
       <h1>Todo List</h1>
       <div className='TodoContainer'>
-        <SortTodos
-          classes={classes}
-        />
-        <TodoForm
-          classes={classes}
-        />
-        <TodoList
-          classes={classes}
-        />
+        <SortTodos classes={classes} />
+        <TodoForm classes={classes} />
+        <TodoList classes={classes} />
       </div>
     </div>
   )
