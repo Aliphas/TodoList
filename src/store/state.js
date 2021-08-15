@@ -1,5 +1,6 @@
 import { toLower, uniqueId, sortBy } from 'lodash';
 import { makeAutoObservable } from "mobx"
+import React from 'react'
 
 class State {
   todos = []
@@ -72,10 +73,11 @@ class State {
   setSortType(type) { this.sortType = type}
 
   toggleIsEditable(index) { this.editableIndex = index }
+}
 
-
-
-
+export const StoreContext = React.createContext(State)
+export const useStore = () => { 
+  return React.useContext(StoreContext)
 }
 
 export default new State()

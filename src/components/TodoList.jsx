@@ -4,15 +4,14 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, TextField, Fab  } from '@material-ui/core';
+import { Button, TextField, Fab, makeStyles  } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { useStore } from '..';
+import { useStore } from '../store/state';
 
-const TodoList = observer((props) => {
+const TodoList = observer(() => {
   const state = useStore()
-  const {classes} = props
   const [editedValue, setEditedValue] = useState('')
   
   const updateHandler = (event, id) => {
@@ -20,6 +19,66 @@ const TodoList = observer((props) => {
     state.updateTodo(id, editedValue)
   }
 
+  const useStyles = makeStyles({
+    input: {
+      borderRadius: '4px',
+      padding: '8px',
+      fontSize: '18px',
+      '& > div': {
+        height: '40px',
+        backgroundColor: 'white',
+        border: 'none'
+      },
+      '& > input:hover': {
+        backgroundColor: 'red'
+      }
+    },
+    button: {
+      width: '70px',
+      padding: '8px',
+      margin: '8px 16px',
+      backgroundColor: 'green',
+      color: 'white',
+      '&:hover': {
+        backgroundColor: 'darkgreen'
+      },
+    },
+    todos: {
+      width: '800px',
+      padding: '0px',
+      margin: '0px',
+      '& > div': {
+        borderRadius: '4px',
+        fontSize: '20px'
+      },
+      '& > div:hover': {
+        backgroundColor: 'lightgreen',
+        color: 'white',
+      }
+    },
+    checkbox: {
+      color: 'blue',
+      '&:checked': {
+        color: 'blue'
+      }
+    },
+    todo: {
+      display: 'inline-block',
+      width: '100%',
+      height: '100%',
+      '&:hover': {
+        backgroundColor: 'lightgreen'
+      },
+    },
+    fabButton: {
+      backgroundColor: 'green',
+      '&:hover': {
+        backgroundColor: 'darkgreen',
+        color: 'white'
+      }
+    }
+  })
+  const classes = useStyles()
   return (
     <List className={classes.todos}> 
       {state.sortedTodos.map((todo, index) => {  
